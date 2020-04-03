@@ -40,3 +40,4 @@ check_versions || exit 1
 echo "Building..."
 mkdir bin 2>/dev/null || true
 go build -o bin/vxrnet ./docker/vxrnet
+go build -o bin/vxrouter ./cni/vxrouter

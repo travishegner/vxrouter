@@ -14,6 +14,7 @@ import (
 	"github.com/TrilliumIT/vxrouter/vxlan"
 )
 
+//TODO: this needs to be re-figured. Checking the environment is not feasible for the CNI plugin
 var (
 	routeProto       = vxrouter.GetEnvIntWithDefault(vxrouter.EnvPrefix+"ROUTE_PROTO", "", vxrouter.DefaultRouteProto)
 	reqAddrSleepTime = vxrouter.GetEnvDurWithDefault(vxrouter.EnvPrefix+"REQ_ADDR_SLEEP", "", vxrouter.DefaultReqAddrSleepTime)
@@ -126,14 +127,13 @@ func getInterface(name string) (*Interface, error) {
 }
 
 // CreateMacvlan creates container macvlan interfaces
-func (hi *Interface) CreateMacvlan(name string) error {
+func (hi *Interface) CreateMacvlan(name string) (*macvlan.Macvlan, error) {
 	log := hi.log.WithField("Func", "CreateMacvlan()")
 	log.Debug()
 	hi.l.rlock()
 	defer hi.l.runlock()
 
-	_, err := hi.vxl.CreateMacvlan(name)
-	return err
+	return hi.vxl.CreateMacvlan(name)
 }
 
 // DeleteMacvlan deletes a container macvlan interface

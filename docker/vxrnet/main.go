@@ -47,14 +47,14 @@ func main() {
 		},
 		cli.DurationFlag{
 			Name:   "prop-timeout, pt",
-			Value:  100 * time.Millisecond,
+			Value:  vxrouter.DefaultReqAddrRetryTimeout,
 			Usage:  "How long to wait for external route propagation",
 			EnvVar: envPrefix + "PROP_TIMEOUT",
 		},
 		cli.DurationFlag{
 			Name:   "resp-timeout, rt",
-			Value:  10 * time.Second,
-			Usage:  "Maximum allowed response milliseconds, to prevent hanging docker daemon",
+			Value:  vxrouter.DefaultReqAddrTimeout,
+			Usage:  "Maximum allowed response timeout, to prevent hanging docker daemon",
 			EnvVar: envPrefix + "RESP_TIMEOUT",
 		},
 		cli.DurationFlag{

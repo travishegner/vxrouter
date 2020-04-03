@@ -5,10 +5,10 @@ import (
 	"net"
 	"time"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/client"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 
 	"github.com/TrilliumIT/vxrouter"
@@ -216,7 +216,7 @@ func (c *Core) CreateContainerInterface(netid, endpointid string) (string, error
 	}
 
 	mvlName := "cmvl_" + endpointid[:7]
-	err = hi.CreateMacvlan(mvlName)
+	_, err = hi.CreateMacvlan(mvlName)
 	if err != nil {
 		log.WithError(err).Error("failed to create macvlan for container")
 		return "", err
